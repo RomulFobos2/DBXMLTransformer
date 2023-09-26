@@ -55,7 +55,7 @@ public class DatabaseWorker {
         testTblService.clearTbl(sqlClearTable);
         logger.info("1. Start create field to table().");
         int intN = Integer.parseInt(this.strN);
-        testTblService.insertFieldsList(intN, sqlInsertTable);
+        testTblService.insertFields(intN, sqlInsertTable);
         logger.info("End create field to table.");
     }
 }

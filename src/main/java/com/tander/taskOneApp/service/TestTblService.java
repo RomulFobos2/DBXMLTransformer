@@ -27,45 +27,67 @@ public class TestTblService {
         logger.debug("Save field to table, count - " + fieldList.size() + ".");
     }
 
-    public void clearTblModels(){
+    public void clearTblModels() {
         logger.info("Clear test_tbl table, count - " + fieldRepository.count() + ".");
         fieldRepository.deleteAll();
     }
 
+//    public void insertFields(int N, String sqlCommand) {
+//        try (Connection connection = jdbcTemplate.getDataSource().getConnection()) {
+//            Statement statement = connection.createStatement();
+//            StringBuilder strForExecute = new StringBuilder();
+//            strForExecute.append(sqlCommand);
+//            for (int i = 1; i <= N; i++) {
+//                strForExecute.append("(" + i + "), ");
+//                if (i > 1 && i % 10000 == 0) {
+//                    strForExecute.deleteCharAt(strForExecute.length() - 2);
+//                    statement.executeUpdate(strForExecute.toString());
+//                    strForExecute.setLength(0);
+//                    strForExecute.append(sqlCommand);
+//                    logger.debug("Save field to table, count - " + N + ".");
+//                }
+//            }
+//            if (!strForExecute.toString().equals(sqlCommand)) {
+//                strForExecute.deleteCharAt(strForExecute.length() - 2);
+//                statement.executeUpdate(strForExecute.toString());
+//                logger.debug("Save field to table, count - " + N + ".");
+//            }
+//        } catch (SQLException e) {
+//            logger.error("Error when executing sql query.", e);
+//        }
+//    }
+
     public void insertFieldsList(int N, String sqlCommand) {
-        try(Connection connection = jdbcTemplate.getDataSource().getConnection()) {
-            Statement statement = connection.createStatement();
-            StringBuilder strForExecute = new StringBuilder();
-            strForExecute.append(sqlCommand);
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection();
+             Statement statement = connection.createStatement()) {
+            StringBuilder strForExecute = new StringBuilder(sqlCommand);
             for (int i = 1; i <= N; i++) {
                 strForExecute.append("(" + i + "), ");
                 if (i > 1 && i % 10000 == 0) {
-                    strForExecute.deleteCharAt(strForExecute.length() - 2);
-                    statement.executeUpdate(strForExecute.toString());
-                    strForExecute.setLength(0);
-                    strForExecute.append(sqlCommand);
+                    strForExecute.delete(strForExecute.length() - 2, strForExecute.length());
+                    statement.addBatch(strForExecute.toString());
+                    statement.executeBatch();
+                    strForExecute.setLength(sqlCommand.length());
                     logger.debug("Save field to table, count - " + N + ".");
                 }
             }
             if (!strForExecute.toString().equals(sqlCommand)) {
-                strForExecute.deleteCharAt(strForExecute.length() - 2);
-                statement.executeUpdate(strForExecute.toString());
+                strForExecute.delete(strForExecute.length() - 2, strForExecute.length());
+                statement.addBatch(strForExecute.toString());
+                statement.executeBatch();
                 logger.debug("Save field to table, count - " + N + ".");
             }
         } catch (SQLException e) {
             logger.error("Error when executing sql query.", e);
-            throw new RuntimeException(e);
         }
     }
 
-    public void clearTbl(String sqlCommand){
-        try(Connection connection = jdbcTemplate.getDataSource().getConnection()) {
+    public void clearTbl(String sqlCommand) {
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection()) {
             Statement statement = connection.createStatement();
             statement.execute(sqlCommand);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             logger.error("Error when executing sql query.", e);
-            throw new RuntimeException(e);
         }
         logger.info("Clear test_tbl table.");
     }
