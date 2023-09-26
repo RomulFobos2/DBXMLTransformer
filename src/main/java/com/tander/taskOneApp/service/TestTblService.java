@@ -57,7 +57,7 @@ public class TestTblService {
 //        }
 //    }
 
-    public void insertFieldsList(int N, String sqlCommand) {
+    public void insertFields(int N, String sqlCommand) {
         try (Connection connection = jdbcTemplate.getDataSource().getConnection();
              Statement statement = connection.createStatement()) {
             StringBuilder strForExecute = new StringBuilder(sqlCommand);
