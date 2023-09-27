@@ -68,23 +68,22 @@ public class TestTblService {
                     statement.addBatch(strForExecute.toString());
                     statement.executeBatch();
                     strForExecute.setLength(sqlCommand.length());
-                    logger.debug("Save field to table, count - " + N + ".");
                 }
             }
             if (!strForExecute.toString().equals(sqlCommand)) {
                 strForExecute.delete(strForExecute.length() - 2, strForExecute.length());
                 statement.addBatch(strForExecute.toString());
                 statement.executeBatch();
-                logger.debug("Save field to table, count - " + N + ".");
             }
+            logger.info("Save field to table, count - " + N + ".");
         } catch (SQLException e) {
             logger.error("Error when executing sql query.", e);
         }
     }
 
     public void clearTbl(String sqlCommand) {
-        try (Connection connection = jdbcTemplate.getDataSource().getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection();
+             Statement statement = connection.createStatement()) {
             statement.execute(sqlCommand);
         } catch (SQLException e) {
             logger.error("Error when executing sql query.", e);

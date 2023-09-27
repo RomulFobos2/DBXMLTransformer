@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/1_new.xml
+/2_new.xml

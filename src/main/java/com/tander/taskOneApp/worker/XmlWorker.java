@@ -9,14 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
-@Order(2)
 public class XmlWorker {
     private static final Logger logger = LoggerFactory.getLogger(XmlWorker.class);
     @Autowired
@@ -49,8 +46,7 @@ public class XmlWorker {
     @Value("${spring.xml.xslt.template}")
     private String templateName;
 
-    @PostConstruct
-    private void work(){
+    public void work(){
         createXml();
         transformXml();
         calculateValue();

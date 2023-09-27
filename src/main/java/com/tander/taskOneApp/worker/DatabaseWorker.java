@@ -6,14 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 
 @Component
-@Order(1)
 public class DatabaseWorker {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseWorker.class);
     @Autowired
@@ -29,9 +26,7 @@ public class DatabaseWorker {
     @Value("${sqlInsertTable}")
     private String sqlInsertTable;
 
-
-    @PostConstruct
-    private void work(){
+    public void work(){
         //createNewFieldsModels();
         createNewFields();
     }
