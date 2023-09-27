@@ -17,7 +17,6 @@ public class TaskOneAppApplication {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
-		SpringApplication.run(TaskOneAppApplication.class, args);
 		ApplicationContext context = SpringApplication.run(TaskOneAppApplication.class, args);
 		DatabaseWorker databaseWorker = context.getBean(DatabaseWorker.class);
 		XmlWorker xmlWorker = context.getBean(XmlWorker.class);
