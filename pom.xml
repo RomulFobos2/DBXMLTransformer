@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tander</groupId>
-	<artifactId>taskOneApp</artifactId>
+	<artifactId>dbXMLTransformer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>taskOneApp</name>
+	<name>dbXMLTransformerApp</name>
 	<description>First task for junior</description>
 	<properties>
 		<java.version>1.8</java.version>
