@@ -10,14 +10,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.util.StopWatch;
 
 @SpringBootApplication
-public class DBXMLTransformerApp {
-	private static final Logger logger = LoggerFactory.getLogger(DBXMLTransformerApp.class);
+public class DBXMLTransformerApplication {
+	private static final Logger logger = LoggerFactory.getLogger(DBXMLTransformerApplication.class);
 
 	public static void main(String[] args) {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
-		ApplicationContext context = SpringApplication.run(DBXMLTransformerApp.class, args);
+		ApplicationContext context = SpringApplication.run(DBXMLTransformerApplication.class, args);
 		DatabaseWorker databaseWorker = context.getBean(DatabaseWorker.class);
 		XmlWorker xmlWorker = context.getBean(XmlWorker.class);
 		databaseWorker.work();
